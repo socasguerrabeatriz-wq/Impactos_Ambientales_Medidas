@@ -1,0 +1,366 @@
+<title>UT2 Impactos y medidas ambientales</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Layout: columna de lectura con cabecera de unidad, explorador por retos y bloque de actividades */
+:root{
+  --bg:#f3f6f4; --surface:#ffffff; --ink:#1b2a27; --muted:#55665f; --line:#d5ded9;
+  --accent:#1f7a5a; --accent-soft:#e1f0e9; --warn:#b4620f; --warn-soft:#fbeedd;
+  --ok:#1f7a5a; --bad:#b3372c; --bad-soft:#f8e3e0;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111a18; --surface:#18241f; --ink:#e4ece8; --muted:#9db0a7; --line:#2b3a34;
+  --accent:#5cc79c; --accent-soft:#1d3a2f; --warn:#e9a55a; --warn-soft:#3a2b1a;
+  --ok:#5cc79c; --bad:#f08a7f; --bad-soft:#3d2220; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111a18; --surface:#18241f; --ink:#e4ece8; --muted:#9db0a7; --line:#2b3a34;
+  --accent:#5cc79c; --accent-soft:#1d3a2f; --warn:#e9a55a; --warn-soft:#3a2b1a;
+  --ok:#5cc79c; --bad:#f08a7f; --bad-soft:#3d2220; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 64px}
+.wrap{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:48px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(2rem,5vw,3rem);font-weight:800}
+h2{font-size:1.65rem;font-weight:700}
+h3{font-size:1.2rem;font-weight:700}
+p{margin:0;max-width:65ch}
+.eyebrow{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* Cabecera */
+header{display:flex;flex-direction:column;gap:18px;border-bottom:1px solid var(--line);padding-bottom:28px}
+.brand{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;font-size:.9rem;color:var(--muted)}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;color:var(--ink)}
+.logobox{background:#fff;border-radius:12px;padding:6px 8px;display:inline-flex}
+.logobox img{width:auto;height:72px;display:block}
+.logo span.mark{width:38px;height:38px;border-radius:50%;background:var(--accent);color:var(--surface);display:grid;place-items:center;font-size:1rem}
+.lede{font-size:1.1rem;color:var(--muted)}
+.meta{display:flex;flex-wrap:wrap;gap:8px}
+.tag{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:.85rem;color:var(--muted);background:var(--surface)}
+
+section{display:flex;flex-direction:column;gap:20px}
+.sechead{display:flex;flex-direction:column;gap:6px}
+
+/* Explorador de retos */
+.retos{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.reto{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:left;color:var(--ink);display:flex;flex-direction:column;gap:2px}
+.reto b{font-family:var(--display);font-size:1.6rem;line-height:1;color:var(--muted)}
+.reto[aria-selected="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.reto[aria-selected="true"] b{color:var(--accent)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--warn-soft);color:var(--warn);border-radius:6px;padding:4px 10px;font-size:.9rem;font-weight:600}
+.ods{font-size:.9rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:12px}
+.subtabs{display:flex;flex-wrap:wrap;gap:6px}
+.subtab{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:4px 12px;font-size:.9rem}
+.subtab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.subbox{border-left:3px solid var(--warn);padding:6px 0 6px 14px;display:flex;flex-direction:column;gap:8px}
+
+/* Sectores */
+.sectores{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+summary{cursor:pointer;font-family:var(--display);font-weight:700;font-size:1.08rem;list-style:none;display:flex;justify-content:space-between;gap:10px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--accent);font-size:1.3rem;line-height:1}
+details[open] summary::after{content:"–"}
+details > div{margin-top:10px;display:flex;flex-direction:column;gap:8px;color:var(--muted)}
+details ol{margin:0;padding-left:1.2em}
+
+/* Actividades */
+.act{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:16px}
+.act-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+.score{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent)}
+.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px;width:100%}
+.row.ok select{border-color:var(--ok);background:var(--accent-soft)}
+.row.bad select{border-color:var(--bad);background:var(--bad-soft)}
+.btn{background:var(--accent);color:var(--surface);border:0;border-radius:8px;padding:10px 18px;font-weight:700;align-self:flex-start}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.card-q{border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:12px;background:var(--bg)}
+.opt{text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 14px;color:var(--ink)}
+.opt.ok{border-color:var(--ok);background:var(--accent-soft)}
+.opt.bad{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default}
+.fb{font-size:.95rem;color:var(--muted)}
+.progress{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.statement{font-size:1.1rem;font-weight:600}
+.who{display:flex;flex-wrap:wrap;gap:8px}
+.who span{background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:6px 14px;font-weight:600}
+.medlist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.medlist li{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--bg)}
+.medlist li strong{display:block}
+.medlist li span{color:var(--muted);font-size:.95rem}
+.garden{background:var(--accent-soft);border-radius:8px;padding:12px 14px;font-size:.95rem}
+.areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+footer{color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);padding-top:16px}
+@media (max-width:560px){.row{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="brand">
+    <div class="logo"><span class="logobox"><img src="data:image/webp;base64,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" alt="Logo del CIFP Zonzamas" width="86" height="96"></span>Arrecife · Lanzarote</div>
+    <div>Curso 2026/27</div>
+  </div>
+  <div class="eyebrow">Sostenibilidad aplicada al sistema productivo · 2º CFGM Jardinería y Floristería</div>
+  <h1>Impactos ambientales y medidas para minimizarlos</h1>
+  <p class="lede">Los grandes retos ambientales no se quedan en el planeta: afectan a la salud de las personas y a la forma de trabajar de las empresas. En esta aula van a explorar esos impactos, conocer las medidas para reducirlos y comprobar lo que han aprendido.</p>
+  <div class="meta"><span class="tag">UT2 · Apartados 2 y 3</span><span class="tag">Docente: Beatriz Socas Guerra</span></div>
+</header>
+
+<section aria-labelledby="h-personas">
+  <div class="sechead">
+    <div class="eyebrow">Parte 1</div>
+    <h2 id="h-personas">Impacto sobre las personas</h2>
+    <p>Elijan un reto ambiental para ver cómo afecta a la salud y a la calidad de vida.</p>
+  </div>
+  <div class="retos" role="tablist" id="retos"></div>
+  <div class="panel" id="panel" role="tabpanel" aria-live="polite"></div>
+</section>
+
+<section aria-labelledby="h-sectores">
+  <div class="sechead">
+    <div class="eyebrow">Parte 2</div>
+    <h2 id="h-sectores">Impacto sobre los sectores productivos</h2>
+    <p>Los retos ambientales también obligan a las empresas a cambiar. Abran cada tarjeta.</p>
+  </div>
+  <div class="sectores">
+    <details open><summary>Normativa y legislación ambiental</summary><div>
+      <p>Cada sector debe cumplir la normativa establecida para:</p>
+      <ol type="a"><li>Controlar los gases y emisiones que produce.</li><li>Gestionar los residuos que genera.</li><li>Regular el consumo de recursos naturales y otras prácticas ambientales propias de su actividad.</li></ol>
+    </div></details>
+    <details><summary>Innovación y nuevas oportunidades</summary><div>
+      <p>Los problemas ambientales abren la puerta a nuevos productos, servicios y formas de producir más sostenibles.</p>
+      <p><strong>En jardinería:</strong> xerojardinería, riego eficiente, reutilización de aguas depuradas o compostaje de restos vegetales.</p>
+    </div></details>
+    <details><summary>Reputación y riesgos financieros</summary><div>
+      <p>Una empresa con malas prácticas ambientales puede perder clientes, sufrir sanciones y tener más dificultades para conseguir financiación.</p>
+    </div></details>
+    <details><summary>Fallos en la cadena de suministro</summary><div>
+      <p>La escasez de recursos reduce su disponibilidad: suben los precios, la cadena de suministro se vuelve inestable y baja la capacidad de producción.</p>
+    </div></details>
+  </div>
+</section>
+
+<section aria-labelledby="h-med">
+  <div class="sechead">
+    <div class="eyebrow">Parte 3</div>
+    <h2 id="h-med">Medidas y acciones para minimizar los impactos ambientales</h2>
+    <p>Para minimizar los impactos y promover la sostenibilidad hay que actuar en siete áreas. Elijan una.</p>
+  </div>
+  <div class="retos" role="tablist" id="medtabs"></div>
+  <div class="panel" id="medpanel" role="tabpanel" aria-live="polite"></div>
+  <div class="panel">
+    <h3>¿Quién puede aplicar estas medidas?</h3>
+    <div class="who"><span>Los gobiernos</span><span>Los sectores productivos</span><span>Los centros educativos</span><span>Las organizaciones</span><span>Cada persona, dentro de sus posibilidades</span></div>
+    <p>Además, se aplican mecanismos para asegurar que las medidas funcionan, como los seguimientos o la Evaluación de Impacto Ambiental (EIA).</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-act">
+  <div class="sechead">
+    <div class="eyebrow">Parte 4</div>
+    <h2 id="h-act">Actividades</h2>
+  </div>
+
+  <div class="act" id="act1">
+    <div class="act-head"><h3>1 · Relaciona cada contaminación con su efecto</h3><span class="score" id="s1"></span></div>
+    <div id="match"></div>
+    <div class="btns"><button class="btn" id="check1">Comprobar</button><button class="btn ghost" id="reset1">Reiniciar</button></div>
+  </div>
+
+  <div class="act" id="act2">
+    <div class="act-head"><h3>2 · ¿Personas o sectores productivos?</h3><span class="score" id="s2"></span></div>
+    <p>Decidan si cada situación es un impacto sobre las personas o sobre los sectores productivos.</p>
+    <div class="progress"><i id="p2" style="width:0%"></i></div>
+    <div class="card-q" id="clasif"></div>
+  </div>
+
+  <div class="act" id="actM">
+    <div class="act-head"><h3>3 · ¿A qué área pertenece cada medida?</h3><span class="score" id="sM"></span></div>
+    <p>Lean la medida y elijan el área en la que aparece en el tema.</p>
+    <div class="progress"><i id="pM" style="width:0%"></i></div>
+    <div class="card-q" id="areaq"></div>
+  </div>
+
+  <div class="act" id="act3">
+    <div class="act-head"><h3>4 · Test final</h3><span class="score" id="s3"></span></div>
+    <div class="progress"><i id="p3" style="width:0%"></i></div>
+    <div class="card-q" id="quiz"></div>
+  </div>
+
+  <div class="act">
+    <h3>5 · Reflexión: una empresa de jardinería en Lanzarote</h3>
+    <p>Imaginen una empresa de jardinería de la isla. ¿Qué impacto ambiental creen que le afecta más (agua, cambio climático, normativa…)? Elijan dos medidas del apartado 3 que podría aplicar y expliquen cómo le ayudarían. Escriban su respuesta y súbanla a Classroom.</p>
+    <label for="refl" class="eyebrow">Su respuesta (se guarda en este navegador)</label>
+    <textarea id="refl" rows="6" placeholder="Por ejemplo: la escasez de agua obliga a…"></textarea>
+    <div class="btns"><button class="btn ghost" id="copy">Copiar texto</button><span class="fb" id="copyfb"></span></div>
+  </div>
+</section>
+
+<footer>CIFP Zonzamas · Sostenibilidad aplicada al sistema productivo · UT2 Retos ambientales y sociales · Beatriz Socas Guerra · Curso 2026/27</footer>
+</div>
+
+<script>
+const RETOS=[
+ {id:"clima",n:"A",t:"Cambio climático",txt:"El aumento de la temperatura global afecta gravemente a la salud. Las olas de calor o de frío, los huracanes, las tormentas y la subida del nivel del mar son cada vez más frecuentes y aumentan el riesgo de lesiones y enfermedades.",fx:["Golpes de calor","Lesiones por fenómenos extremos","Más enfermedades"],ods:"ODS 13 · Acción por el clima"},
+ {id:"pob",n:"B",t:"Superpoblación",txt:"El aumento de población en núcleos como las ciudades puede reducir la calidad de vida por la escasez de recursos, el colapso del mercado laboral y la dificultad para encontrar empleo.",fx:["Escasez de recursos","Paro","Peor calidad de vida"],ods:"ODS 11 · Ciudades y comunidades sostenibles"},
+ {id:"agua",n:"C",t:"Consumo de agua",txt:"La escasez de agua provoca deshidratación y propagación de enfermedades por falta de higiene. También causa escasez de alimentos, porque la agricultura, la ganadería y la industria no pueden cubrir las necesidades de la población.",fx:["Deshidratación","Enfermedades por falta de higiene","Escasez de alimentos"],ods:"ODS 6 · Agua limpia y saneamiento"},
+ {id:"cont",n:"D",t:"Contaminación",txt:"Cada tipo de contaminación tiene efectos distintos sobre la salud. Elijan uno:",sub:true,ods:"ODS 3 · Salud y bienestar · ODS 6 · ODS 11"},
+ {id:"defo",n:"E",t:"Deforestación",txt:"Acabar con la vegetación aumenta el riesgo de que se transmitan a las personas enfermedades infecciosas que normalmente se limitan a la fauna salvaje.",fx:["Enfermedades de origen animal (zoonosis)"],ods:"ODS 15 · Vida de ecosistemas terrestres"},
+ {id:"otros",n:"F",t:"Otros problemas",txt:"La pérdida de biodiversidad, la mala gestión de los residuos y el uso de energías no renovables también perjudican la salud de las personas y dificultan una convivencia pacífica entre países.",fx:["Problemas de salud","Conflictos entre países"],ods:"ODS 7, 12 y 15"}
+];
+const CONT=[
+ {t:"Atmosférica",txt:"Respirar aire contaminado agrava las enfermedades cardiacas y respiratorias y puede causar cáncer de pulmón.",fx:["Enf. respiratorias","Enf. cardiacas","Cáncer de pulmón"]},
+ {t:"Del agua",txt:"El agua tóxica o un saneamiento deficiente transmiten enfermedades.",fx:["Cólera","Diarrea","Hepatitis A","Fiebre tifoidea","Poliomielitis"]},
+ {t:"Acústica",txt:"La exposición prolongada al ruido afecta a la salud de varias formas.",fx:["Problemas de salud mental","Trastornos del sueño","Riesgo cardiovascular e infartos","Dificultades de aprendizaje"]},
+ {t:"Lumínica",txt:"El exceso de iluminación artificial altera los ritmos del cuerpo.",fx:["Alteraciones del sueño","Estrés","Fatiga"]},
+ {t:"Electromagnética",txt:"Puede modificar moléculas del cuerpo y, como consecuencia, generar cáncer.",fx:["Modificación de moléculas","Cáncer"]},
+ {t:"Microbiológica, química y radiactiva",txt:"Provocan enfermedades graves o incluso la muerte.",fx:["Enfermedades graves","Muerte"]}
+];
+const $=s=>document.querySelector(s);
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const chips=a=>`<div class="chips">${a.map(x=>`<span class="chip">${esc(x)}</span>`).join("")}</div>`;
+let cur="clima",curSub=0;
+function renderRetos(){
+  $("#retos").innerHTML=RETOS.map(r=>`<button class="reto" role="tab" id="tab-${r.id}" aria-selected="${r.id===cur}" data-id="${r.id}"><b>${r.n}</b>${r.t}</button>`).join("");
+  const r=RETOS.find(x=>x.id===cur);
+  let h=`<h3>${r.t}</h3><p>${r.txt}</p>`;
+  if(r.sub){
+    h+=`<div class="subtabs" role="tablist">${CONT.map((c,i)=>`<button class="subtab" role="tab" aria-selected="${i===curSub}" data-sub="${i}">${c.t}</button>`).join("")}</div>`;
+    const c=CONT[curSub]; h+=`<div class="subbox"><strong>Contaminación ${c.t.toLowerCase()}</strong><p>${c.txt}</p>${chips(c.fx)}</div>`;
+  } else h+=chips(r.fx);
+  h+=`<div class="ods">Relacionado con: ${r.ods}</div>`;
+  $("#panel").innerHTML=h;
+}
+$("#retos").addEventListener("click",e=>{const b=e.target.closest(".reto");if(b){cur=b.dataset.id;curSub=0;renderRetos()}});
+$("#panel").addEventListener("click",e=>{const b=e.target.closest(".subtab");if(b){curSub=+b.dataset.sub;renderRetos()}});
+renderRetos();
+
+/* Medidas */
+const MED=[
+ {n:"A",t:"Eficiencia energética",i:"Reducir los impactos de producir y usar energía.",m:[["Auditorías energéticas",""],["Aislamiento térmico","En edificios."],["Iluminación eficiente","Por ejemplo, iluminación LED."],["Gestión de la demanda de energía","Según las necesidades de la instalación y de los usuarios."],["Optimización de procesos industriales","Identificar y eliminar desperdicios energéticos."],["Recuperación de calor","Reutilizar el calor residual."],["Automatización y control","Ajustar iluminación y climatización según las condiciones y necesidades."],["Transporte sostenible",""]],g:"Programadores de riego automáticos, bombas eficientes y alumbrado LED en jardines públicos."},
+ {n:"B",t:"Gestión de residuos",i:"Gestionar los residuos de forma sostenible.",m:[["Reducir en el origen","Con consumo responsable."],["Reutilización",""],["Reciclaje","Con programas de reciclaje."],["Compostaje",""],["Tratamiento de residuos peligrosos",""],["Legislación y regulación","Que promuevan una buena gestión."],["Economía circular","Reutilizar, reciclar y recuperar productos y materiales."],["Colaboración público-privada","Sector público, sector privado y sociedad."]],g:"Compostar restos de poda, reutilizar macetas y llevar los envases de fitosanitarios a un punto autorizado."},
+ {n:"C",t:"Conservación de los recursos naturales",i:"Proteger los recursos de los que dependemos.",m:[["Protección de ecosistemas y biodiversidad",""],["Reforestación",""],["Gestión sostenible del agua",""],["Uso sostenible de la tierra","Prácticas agrícolas, forestales y ganaderas sostenibles."],["Pesca responsable",""],["Control de la contaminación","Del aire, el agua y el suelo."],["Cooperación internacional","Intercambio de conocimientos y recursos."]],g:"Usar especies autóctonas canarias y riego por goteo para ahorrar agua."},
+ {n:"D",t:"Control de la contaminación",i:"Limitar lo que se emite y se vierte al medio.",m:[["Legislación","Límites máximos de emisiones y vertidos al aire, agua y suelo."],["Tecnología de control","Instalada en las industrias."],["Seguimiento","Vigilar la calidad del agua, aire y suelo y el cumplimiento de la normativa."],["Gestión adecuada de residuos","Reducir, reutilizar y reciclar."],["Fomento de energías limpias",""],["Transporte sostenible",""]],g:"Aplicar fitosanitarios solo cuando hace falta y usar maquinaria eléctrica, más silenciosa y sin humos."},
+ {n:"E",t:"Movilidad sostenible",i:"Moverse contaminando menos.",m:[["Transporte público eficiente",""],["Infraestructuras para peatones y ciclistas",""],["Uso compartido de vehículos",""],["Vehículos eléctricos y de bajas emisiones","Con incentivos económicos para comprarlos."],["Teletrabajo y flexibilidad laboral",""],["Transporte sostenible",""],["Restricciones de acceso y peajes","En zonas urbanas muy congestionadas."]],g:"Planificar rutas de mantenimiento para hacer menos kilómetros y usar furgonetas eléctricas."},
+ {n:"F",t:"Innovación tecnológica",i:"Investigar y apoyar soluciones nuevas.",m:[["Investigación y desarrollo","En sostenibilidad."],["Apoyo a empresas emergentes","Para que desarrollen soluciones sostenibles."],["Certificaciones ambientales","Reconocen el uso de energías y tecnologías limpias."],["Plataformas de colaboración","Para compartir conocimientos sobre desarrollo sostenible."]],g:"Sensores de humedad del suelo que solo activan el riego cuando la planta lo necesita."},
+ {n:"G",t:"Educación y sensibilización",i:"Que la sociedad conozca el problema y sepa actuar.",m:[["Programas educativos","Sobre sostenibilidad y medio ambiente."],["Talleres y actividades prácticas",""],["Campañas de sensibilización",""],["Voluntariado ambiental",""],["Títulos sobre gestión del medio ambiente","En Formación Profesional o en la Universidad."]],g:"Este mismo módulo de Sostenibilidad es un ejemplo de esta medida."}
+];
+let curM=0;
+function renderMed(){
+  $("#medtabs").innerHTML=MED.map((m,i)=>`<button class="reto" role="tab" aria-selected="${i===curM}" data-m="${i}"><b>${m.n}</b>${m.t}</button>`).join("");
+  const m=MED[curM];
+  $("#medpanel").innerHTML=`<h3>${m.n}) ${m.t}</h3><p>${m.i}</p><ul class="medlist">${m.m.map(x=>`<li><strong>${x[0]}</strong>${x[1]?`<span>${x[1]}</span>`:""}</li>`).join("")}</ul><div class="garden"><strong>En jardinería:</strong> ${m.g}</div>`;
+}
+$("#medtabs").addEventListener("click",e=>{const b=e.target.closest(".reto");if(b){curM=+b.dataset.m;renderMed()}});
+renderMed();
+
+/* Actividad áreas */
+const AQ=[["Instalar iluminación LED",0],["Compostaje",1],["Reforestación",2],["Fijar límites máximos de emisiones y vertidos",3],["Infraestructuras para peatones y ciclistas",4],["Certificaciones ambientales",5],["Voluntariado ambiental",6],["Recuperación de calor",0],["Economía circular",1],["Pesca responsable",2],["Teletrabajo y flexibilidad laboral",4],["Campañas de sensibilización",6]];
+let ai=0,aok=0;
+function renderArea(){
+  $("#pM").style.width=(ai/AQ.length*100)+"%";
+  if(ai>=AQ.length){$("#areaq").innerHTML=`<p class="statement">Han acertado ${aok} de ${AQ.length}.</p><button class="btn ghost" id="againM">Repetir</button>`;$("#againM").onclick=()=>{ai=0;aok=0;$("#sM").textContent="";renderArea()};return}
+  $("#areaq").innerHTML=`<span class="eyebrow">Medida ${ai+1} de ${AQ.length}</span><p class="statement">${AQ[ai][0]}</p><div class="areas">${MED.map((m,i)=>`<button class="opt" data-i="${i}">${m.n}) ${m.t}</button>`).join("")}</div><p class="fb" id="fbM"></p>`;
+}
+$("#areaq").addEventListener("click",e=>{
+  const b=e.target.closest(".opt");if(!b||b.disabled)return;
+  const c=AQ[ai][1],right=+b.dataset.i===c;if(right)aok++;
+  document.querySelectorAll("#areaq .opt").forEach(o=>{o.disabled=true;if(+o.dataset.i===c)o.classList.add("ok");else if(o===b)o.classList.add("bad")});
+  $("#fbM").innerHTML=`<strong>${right?"¡Correcto!":"No es esa."}</strong> Pertenece a ${MED[c].n}) ${MED[c].t}.`;
+  $("#sM").textContent=`${aok} / ${AQ.length}`;
+  const n=document.createElement("button");n.className="btn";n.textContent=ai+1<AQ.length?"Siguiente":"Ver resultado";n.onclick=()=>{ai++;renderArea()};$("#areaq").appendChild(n);
+});
+renderArea();
+
+/* Actividad 1 */
+const PAIRS=[["Atmosférica","Cáncer de pulmón y enfermedades respiratorias"],["Del agua","Cólera, hepatitis A y fiebre tifoidea"],["Acústica","Trastornos del sueño y dificultades de aprendizaje"],["Lumínica","Alteraciones del sueño, estrés y fatiga"],["Electromagnética","Modificación de moléculas del cuerpo"],["Radiactiva","Enfermedades graves o la muerte"]];
+const opts=[...PAIRS.map(p=>p[1])].sort(()=>Math.random()-.5);
+function renderMatch(){
+  $("#match").innerHTML=PAIRS.map((p,i)=>`<div class="row" id="r${i}"><label for="m${i}"><strong>${p[0]}</strong></label><select id="m${i}"><option value="">Elijan un efecto…</option>${opts.map(o=>`<option>${o}</option>`).join("")}</select></div>`).join("");
+  $("#s1").textContent="";
+}
+renderMatch();
+$("#check1").onclick=()=>{let ok=0;PAIRS.forEach((p,i)=>{const r=$("#r"+i),v=$("#m"+i).value;r.classList.remove("ok","bad");if(v){r.classList.add(v===p[1]?"ok":"bad");if(v===p[1])ok++}});$("#s1").textContent=`${ok} / ${PAIRS.length}`};
+$("#reset1").onclick=renderMatch;
+
+/* Actividad 2 */
+const CLAS=[
+ ["Un vivero tiene que pagar más por el agua de riego porque escasea.","S","La escasez de un recurso lo encarece y afecta a la producción: impacto sobre un sector productivo."],
+ ["Durante una ola de calor aumentan los ingresos hospitalarios.","P","El cambio climático eleva el riesgo de enfermedades: impacto sobre las personas."],
+ ["Una empresa debe gestionar sus residuos verdes según la ley.","S","Cumplir la normativa ambiental es un impacto sobre los sectores productivos."],
+ ["Los vecinos de una calle muy ruidosa duermen mal.","P","La contaminación acústica provoca trastornos del sueño."],
+ ["Una empresa ofrece jardines de bajo consumo de agua como nuevo servicio.","S","Es innovación y una nueva oportunidad de negocio."],
+ ["En una ciudad superpoblada cuesta más encontrar empleo.","P","La superpoblación reduce la calidad de vida de las personas."],
+ ["Una empresa pierde clientes tras un vertido contaminante.","S","Es un problema de reputación y un riesgo financiero."],
+ ["Se transmite una enfermedad de animales salvajes a personas tras talar un bosque.","P","La deforestación facilita la transmisión de enfermedades de la fauna salvaje."]
+];
+let ci=0,cok=0;
+function renderClas(){
+  $("#p2").style.width=(ci/CLAS.length*100)+"%";
+  if(ci>=CLAS.length){$("#clasif").innerHTML=`<p class="statement">Han acertado ${cok} de ${CLAS.length}.</p><button class="btn ghost" id="again2">Repetir</button>`;$("#again2").onclick=()=>{ci=0;cok=0;$("#s2").textContent="";renderClas()};return}
+  const c=CLAS[ci];
+  $("#clasif").innerHTML=`<span class="eyebrow">Situación ${ci+1} de ${CLAS.length}</span><p class="statement">${c[0]}</p><div class="btns"><button class="opt" data-v="P">Personas</button><button class="opt" data-v="S">Sectores productivos</button></div><p class="fb" id="fb2"></p>`;
+}
+$("#clasif").addEventListener("click",e=>{
+  const b=e.target.closest(".opt");if(!b||b.disabled)return;
+  const c=CLAS[ci],right=b.dataset.v===c[1];if(right)cok++;
+  document.querySelectorAll("#clasif .opt").forEach(o=>{o.disabled=true;if(o.dataset.v===c[1])o.classList.add("ok");else if(o===b)o.classList.add("bad")});
+  $("#fb2").innerHTML=`<strong>${right?"¡Correcto!":"No es así."}</strong> ${c[2]}`;
+  $("#s2").textContent=`${cok} / ${CLAS.length}`;
+  const n=document.createElement("button");n.className="btn";n.textContent=ci+1<CLAS.length?"Siguiente":"Ver resultado";n.onclick=()=>{ci++;renderClas()};$("#clasif").appendChild(n);
+});
+renderClas();
+
+/* Actividad 3 */
+const Q=[
+ {q:"¿Qué enfermedades se transmiten por agua contaminada o un saneamiento deficiente?",o:["Cólera, diarrea y hepatitis A","Cáncer de pulmón y asma","Estrés y fatiga","Infartos y problemas de aprendizaje"],a:0,e:"El agua tóxica transmite cólera, diarrea, hepatitis A, fiebre tifoidea o poliomielitis."},
+ {q:"El exceso de iluminación artificial puede provocar…",o:["Cólera","Alteraciones del sueño, estrés o fatiga","Deshidratación","Escasez de alimentos"],a:1,e:"Es la contaminación lumínica."},
+ {q:"¿Por qué la escasez de agua puede causar escasez de alimentos?",o:["Porque el agua es un alimento","Porque la agricultura, la ganadería y la industria también la necesitan","Porque sube el nivel del mar","Porque aumenta la población"],a:1,e:"Sin agua, los sectores que producen alimentos no pueden cubrir las necesidades de la población."},
+ {q:"¿Qué riesgo para la salud tiene la deforestación?",o:["Contaminación acústica","Transmisión de enfermedades limitadas a la fauna salvaje","Aumento del nivel del mar","Cáncer de piel"],a:1,e:"Al eliminar la vegetación, aumenta el contacto con fauna salvaje y sus enfermedades."},
+ {q:"Según la normativa, los sectores productivos deben…",o:["Solo pagar impuestos","Controlar emisiones, gestionar residuos y regular el consumo de recursos","Aumentar su producción","Contratar más personal"],a:1,e:"Son los tres apartados a), b) y c) de la normativa ambiental."},
+ {q:"La escasez de recursos en la cadena de suministro provoca…",o:["Bajada de precios","Encarecimiento, inestabilidad y menor capacidad de producción","Más reputación","Nuevos empleos seguros"],a:1,e:"Menos disponibilidad implica precios más altos y producción más inestable."},
+ {q:"¿Cuál es un impacto de la superpoblación en las ciudades?",o:["Más empleo para todos","Dificultad para encontrar empleo y escasez de recursos","Aire más limpio","Menos residuos"],a:1,e:"La superpoblación puede colapsar el mercado laboral y reducir la calidad de vida."},
+ {q:"¿Qué medida pertenece a la gestión de residuos?",o:["Aislamiento térmico","Reducir en el origen con consumo responsable","Pesca responsable","Peajes urbanos"],a:1,e:"Reducir en el origen es la primera medida de una gestión de residuos sostenible."},
+ {q:"La recuperación de calor sirve para…",o:["Reutilizar el calor residual y reducir la demanda de energía","Calentar el agua de riego","Aumentar la temperatura de los invernaderos","Medir la contaminación"],a:0,e:"Es una medida de eficiencia energética."},
+ {q:"¿Quién puede aplicar las medidas para minimizar los impactos ambientales?",o:["Solo los gobiernos","Solo las empresas","Gobiernos, sectores productivos, centros educativos, organizaciones y cada persona","Solo las organizaciones ecologistas"],a:2,e:"Todos pueden actuar, cada persona dentro de sus posibilidades."},
+ {q:"¿Qué herramienta se usa para asegurar la eficacia de las medidas?",o:["La publicidad","Los seguimientos y la Evaluación de Impacto Ambiental (EIA)","Las rebajas","El teletrabajo"],a:1,e:"Los seguimientos y la EIA comprueban que las medidas funcionan."},
+ {q:"¿Qué afirmación sobre los retos ambientales y las empresas es correcta?",o:["Solo traen problemas","No les afectan","También generan innovación y nuevas oportunidades de negocio","Solo afectan a la industria"],a:2,e:"Los retos ambientales impulsan nuevos productos y servicios sostenibles."}
+];
+let qi=0,qok=0;
+function renderQuiz(){
+  $("#p3").style.width=(qi/Q.length*100)+"%";
+  if(qi>=Q.length){const msg=qok>=10?"¡Excelente trabajo!":qok>=7?"Bien, repasen los fallos.":"Repasen los apartados 2 y 3 y vuelvan a intentarlo.";$("#quiz").innerHTML=`<p class="statement">Resultado: ${qok} de ${Q.length}. ${msg}</p><button class="btn ghost" id="again3">Repetir test</button>`;$("#again3").onclick=()=>{qi=0;qok=0;$("#s3").textContent="";renderQuiz()};return}
+  const x=Q[qi];
+  $("#quiz").innerHTML=`<span class="eyebrow">Pregunta ${qi+1} de ${Q.length}</span><p class="statement">${x.q}</p><div style="display:flex;flex-direction:column;gap:8px">${x.o.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join("")}</div><p class="fb" id="fb3"></p>`;
+}
+$("#quiz").addEventListener("click",e=>{
+  const b=e.target.closest(".opt");if(!b||b.disabled)return;
+  const x=Q[qi],i=+b.dataset.i,right=i===x.a;if(right)qok++;
+  document.querySelectorAll("#quiz .opt").forEach(o=>{o.disabled=true;if(+o.dataset.i===x.a)o.classList.add("ok");else if(o===b)o.classList.add("bad")});
+  $("#fb3").innerHTML=`<strong>${right?"¡Correcto!":"Respuesta incorrecta."}</strong> ${x.e}`;
+  $("#s3").textContent=`${qok} / ${Q.length}`;
+  const n=document.createElement("button");n.className="btn";n.textContent=qi+1<Q.length?"Siguiente":"Ver resultado";n.onclick=()=>{qi++;renderQuiz()};$("#quiz").appendChild(n);
+});
+renderQuiz();
+
+/* Reflexión */
+const ta=$("#refl");
+try{ta.value=localStorage.getItem("ut2-impactos-refl")||""}catch(e){}
+ta.addEventListener("input",()=>{try{localStorage.setItem("ut2-impactos-refl",ta.value)}catch(e){}});
+$("#copy").onclick=()=>{
+  const done=()=>$("#copyfb").textContent="Copiado. Péguenlo en Classroom.";
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(ta.value).then(done).catch(()=>{ta.select();$("#copyfb").textContent="Texto seleccionado: usen Ctrl+C."})}
+  else{ta.select();$("#copyfb").textContent="Texto seleccionado: usen Ctrl+C."}
+};
+</script>
